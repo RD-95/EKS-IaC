@@ -16,8 +16,20 @@ module "iam" {
 module "eks" {
   source = "./modules/eks"
 
-  cluster_name       = "eks-cluster"
-  cluster_version    = "1.31"
-  cluster_role_arn   = module.iam.cluster_role_arn
-  subnet_ids         = concat(module.vpc.private_subnet_ids, module.vpc.public_subnet_ids)
+  cluster_name     = "eks-cluster"
+  cluster_version  = "1.31"
+  cluster_role_arn = module.iam.cluster_role_arn
+  subnet_ids       = concat(module.vpc.private_subnet_ids, module.vpc.public_subnet_ids)
+}
+
+module "node_group" {
+  source = "./modules/node_group"
+
+  cluster_name   = module.eks.cluster_name
+  node_role_arn  = module.iam.node_role_arn
+  subnet_ids     = module.vpc.private_subnet_ids
+  instance_type  = "t3.micro"
+  desired_size   = 2
+  min_size       = 1
+  max_size       = 3
 }

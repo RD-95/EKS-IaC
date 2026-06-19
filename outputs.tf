@@ -42,3 +42,8 @@ output "kubeconfig_command" {
   description = "Run this to configure kubectl"
   value       = module.eks.kubeconfig_command
 }
+
+output "node_group_name" {
+  description = "EKS node group name"
+  value       = module.node_group.node_group_name
+}
