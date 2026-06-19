@@ -7,3 +7,8 @@ module "vpc" {
   public_subnets  = ["10.0.1.0/24", "10.0.2.0/24"]
   private_subnets = ["10.0.3.0/24", "10.0.4.0/24"]
 }
+
+module "iam" {
+  source       = "./modules/iam"
+  cluster_name = "eks-cluster"
+}
