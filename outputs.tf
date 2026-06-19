@@ -27,3 +27,18 @@ output "eks_node_role_arn" {
   description = "IAM role ARN for the EKS worker nodes"
   value       = module.iam.node_role_arn
 }
+
+output "cluster_name" {
+  description = "EKS cluster name"
+  value       = module.eks.cluster_name
+}
+
+output "cluster_endpoint" {
+  description = "EKS API server endpoint"
+  value       = module.eks.cluster_endpoint
+}
+
+output "kubeconfig_command" {
+  description = "Run this to configure kubectl"
+  value       = module.eks.kubeconfig_command
+}
