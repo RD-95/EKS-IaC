@@ -13,8 +13,6 @@ spec:
       labels:
         app: diffchecker
     spec:
-      imagePullSecrets:
-        - name: ghcr-secret
       containers:
         - name: diffchecker
           image: ghcr.io/rd-95/diffchecker:latest
