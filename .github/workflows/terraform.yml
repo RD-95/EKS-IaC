@@ -1,4 +1,4 @@
-name: Terraform Plan/Apply/Destroy
+name: Terraform
 
 on:
   pull_request:
@@ -43,12 +43,6 @@ jobs:
         uses: hashicorp/setup-terraform@v3
         with:
           terraform_version: ${{ env.TF_VERSION }}
-
-      - name: Restore state
-        uses: actions/cache/restore@v4
-        with:
-          path: terraform.tfstate
-          key: tfstate-main
 
       - run: terraform init
       - run: terraform validate
@@ -103,21 +97,8 @@ jobs:
         with:
           terraform_version: ${{ env.TF_VERSION }}
 
-      - name: Restore state
-        uses: actions/cache/restore@v4
-        with:
-          path: terraform.tfstate
-          key: tfstate-main
-
       - run: terraform init
       - run: terraform apply -auto-approve
-
-      - name: Save state
-        uses: actions/cache/save@v4
-        if: always()
-        with:
-          path: terraform.tfstate
-          key: tfstate-main
 
   destroy:
     name: Destroy
@@ -139,18 +120,5 @@ jobs:
         with:
           terraform_version: ${{ env.TF_VERSION }}
 
-      - name: Restore state
-        uses: actions/cache/restore@v4
-        with:
-          path: terraform.tfstate
-          key: tfstate-main
-
       - run: terraform init
       - run: terraform destroy -auto-approve
-
-      - name: Clear saved state
-        uses: actions/cache/save@v4
-        if: always()
-        with:
-          path: terraform.tfstate
-          key: tfstate-main
