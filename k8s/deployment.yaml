@@ -18,6 +18,9 @@ spec:
           image: ghcr.io/rd-95/diffchecker:latest
           ports:
             - containerPort: 5000
+          env:
+            - name: FLASK_RUN_HOST
+              value: "0.0.0.0"
           resources:
             requests:
               cpu: 100m
