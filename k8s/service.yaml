@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: diffchecker
+  namespace: default
+spec:
+  type: LoadBalancer
+  selector:
+    app: diffchecker
+  ports:
+    - port: 80
+      targetPort: 5000
+      protocol: TCP

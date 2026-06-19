@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: diffchecker
+  namespace: default
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: diffchecker
+  template:
+    metadata:
+      labels:
+        app: diffchecker
+    spec:
+      imagePullSecrets:
+        - name: ghcr-secret
+      containers:
+        - name: diffchecker
+          image: ghcr.io/rd-95/diffchecker:latest
+          ports:
+            - containerPort: 5000
+          resources:
+            requests:
+              cpu: 100m
+              memory: 128Mi
+            limits:
+              cpu: 250m
+              memory: 256Mi
