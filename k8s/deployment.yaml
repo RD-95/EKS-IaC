@@ -5,6 +5,11 @@ metadata:
   namespace: default
 spec:
   replicas: 2
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 0        # don't create extra pods during update
+      maxUnavailable: 1  # terminate one old pod first, then start new one
   selector:
     matchLabels:
       app: diffchecker
